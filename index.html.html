@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNI NEST| Sri Lankan Student Boarding</title>
+<style>
+:root{
+  --navy:#102c73; --blue:#163f9e; --light:#f5f8ff; --border:#dce3ef;
+  --text:#17213a; --muted:#647089; --green:#15945b; --greenbg:#e9f8ef;
+  --orange:#e99a16; --orangebg:#fff5df; --red:#d84d58; --redbg:#fff0f1;
+  --purple:#5d43b6; --purplebg:#f1edff; --teal:#158b91; --tealbg:#e8f8f8;
+  --shadow:0 8px 25px rgba(16,44,115,.08);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,Arial,sans-serif;background:#f3f6fb;color:var(--text)}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{min-height:100vh}
+.navbar{height:70px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 7%;position:sticky;top:0;z-index:20}
+.logo{font-weight:800;color:var(--navy);font-size:19px;display:flex;gap:9px;align-items:center;cursor:pointer}
+.logo-icon{width:31px;height:31px;border-radius:8px;background:var(--navy);color:#fff;display:grid;place-items:center}
+.navlinks{display:flex;gap:8px;align-items:center}
+.navlinks button{border:0;background:transparent;color:#39435b;padding:10px 13px;border-radius:8px}
+.navlinks button:hover{background:var(--light);color:var(--navy)}
+.menu{display:none;border:0;background:transparent;font-size:25px}
+.container{width:min(1120px,92%);margin:auto}
+.page{display:none;padding:38px 0 60px}
+.page.active{display:block}
+.hero{background:#fff;border-radius:20px;padding:55px 7%;min-height:570px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow);overflow:hidden}
+.hero-copy{max-width:520px}
+.eyebrow{color:var(--blue);font-weight:700;letter-spacing:.5px;margin-bottom:12px}
+h1{font-size:50px;line-height:1.05;margin:0 0 18px;color:#10275e}
+h2{font-size:31px;margin:0 0 8px;color:#10275e}
+h3{margin:0 0 8px}
+p{line-height:1.6;color:var(--muted)}
+.btn{border:0;border-radius:10px;padding:13px 20px;font-weight:700;transition:.2s}
+.btn-primary{background:var(--navy);color:#fff}
+.btn-primary:hover{background:#0b235d;transform:translateY(-1px)}
+.btn-outline{background:#fff;color:var(--navy);border:1px solid #bdc9df}
+.btn-green{background:#0d9b5d;color:#fff}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.hero-art{width:390px;height:330px;position:relative;display:grid;place-items:center}
+.house{width:270px;height:185px;background:#eef3fb;border:4px solid #9db0cf;border-radius:12px;position:relative;margin-top:70px}
+.house:before{content:"";position:absolute;left:-28px;top:-75px;border-left:160px solid transparent;border-right:160px solid transparent;border-bottom:90px solid #173c83}
+.house:after{content:"";position:absolute;bottom:0;left:110px;width:50px;height:82px;background:#d7e2f3;border-radius:6px 6px 0 0}
+.tree{position:absolute;width:75px;height:110px;border-radius:50%;background:#b9e4c7;bottom:18px}
+.tree.left{left:20px}.tree.right{right:15px}
+.person{position:absolute;font-size:100px;bottom:0}.person.a{left:105px}.person.b{right:70px;font-size:82px}
+.card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px;box-shadow:0 5px 18px rgba(20,45,100,.05)}
+.grid{display:grid;gap:18px}.grid-2{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-4{grid-template-columns:repeat(4,1fr)}
+.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:22px}
+.muted{color:var(--muted);font-size:14px}
+.search-box{background:#fff;padding:24px;border:1px solid var(--border);border-radius:15px;box-shadow:var(--shadow)}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.field label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}
+.field input,.field select,.field textarea{width:100%;padding:12px;border:1px solid #cfd8e8;border-radius:9px;background:#fff;outline:none}
+.field textarea{min-height:100px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #eaf0ff}
+.result-card{display:flex;gap:20px;align-items:center}
+.photo{height:180px;width:240px;border-radius:12px;background:linear-gradient(145deg,#d9e7f4,#f8fbff);display:grid;place-items:center;font-size:75px;overflow:hidden}
+.price{font-size:25px;color:var(--navy);font-weight:800}.tag{display:inline-block;padding:5px 9px;border-radius:6px;font-size:12px;font-weight:700;background:var(--greenbg);color:var(--green)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.chip{border:1px solid var(--border);padding:7px 10px;border-radius:20px;background:#fff;font-size:13px}
+.list{padding-left:20px;line-height:2;color:#43506a}
+.terms{border:1px solid var(--border);border-radius:10px;overflow:hidden}.term{display:flex;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--border);font-size:14px}.term:last-child{border:0}.term strong{font-weight:700}
+.check{display:flex;gap:9px;align-items:center;margin:15px 0;font-size:13px}
+.signature{border:1px solid var(--border);padding:20px;border-radius:10px;min-height:100px}
+.signature .scribble{font-family:cursive;font-size:28px;margin:10px 0;color:#243b70}
+.dashboard{display:grid;grid-template-columns:210px 1fr;gap:20px}
+.sidebar{background:#fff;border:1px solid var(--border);border-radius:15px;padding:13px;height:max-content}
+.side-btn{display:block;width:100%;text-align:left;border:0;background:transparent;padding:12px;border-radius:8px;margin-bottom:3px;color:#4a556d}
+.side-btn.active,.side-btn:hover{background:#eaf0ff;color:var(--navy);font-weight:700}
+.stat{min-height:135px;display:flex;flex-direction:column;justify-content:space-between}.stat-icon{font-size:22px}.stat-value{font-size:25px;font-weight:800;color:var(--navy)}.stat small{color:var(--muted)}
+.green{background:var(--greenbg)}.orange{background:var(--orangebg)}.red{background:var(--redbg)}.purple{background:var(--purplebg)}.teal{background:var(--tealbg)}
+.table{width:100%;border-collapse:collapse}.table th,.table td{padding:13px;border-bottom:1px solid var(--border);text-align:left;font-size:14px}.table th{color:#56627a;font-size:12px}
+.tabs{display:flex;gap:5px;margin-bottom:15px}.tab{border:1px solid var(--border);background:#fff;padding:9px 14px;border-radius:8px}.tab.active{background:var(--navy);color:#fff}
+.issue{display:grid;grid-template-columns:110px 1fr;gap:20px}.issue-photo{height:100px;background:#e8edf5;border-radius:10px;display:grid;place-items:center;font-size:43px}
+.status{padding:7px 10px;border-radius:7px;background:var(--orangebg);color:#9a6500;font-size:12px;font-weight:800}
+.timeline{display:flex;justify-content:space-between;margin:25px 0;position:relative}.timeline:before{content:"";height:3px;background:#d7dfed;position:absolute;top:13px;left:30px;right:30px}.step{position:relative;text-align:center;width:25%;font-size:12px;color:#6d7890}.dot{width:28px;height:28px;border-radius:50%;background:#d7dfed;margin:0 auto 8px;display:grid;place-items:center;color:#fff;font-weight:800;position:relative;z-index:2}.step.done .dot{background:var(--green)}.step.current .dot{background:var(--orange)}
+.notice{border-left:4px solid var(--blue);padding:14px 16px;background:#f8faff;border-radius:8px;margin-bottom:12px}.notice h4{margin:0 0 5px}
+.history-row{display:flex;gap:15px;padding:15px 0;border-bottom:1px solid var(--border)}.history-date{min-width:75px;font-weight:800;color:var(--navy)}
+.footer{text-align:center;color:#7a8498;padding:25px;font-size:12px}
+.toast{position:fixed;right:20px;bottom:20px;background:#142b68;color:#fff;padding:14px 18px;border-radius:10px;box-shadow:var(--shadow);display:none;z-index:50}.toast.show{display:block}
+.modal{position:fixed;inset:0;background:rgba(10,20,45,.45);display:none;align-items:center;justify-content:center;z-index:40;padding:20px}.modal.show{display:flex}.modal-box{background:#fff;border-radius:15px;width:min(500px,100%);padding:25px}.close{float:right;border:0;background:#f0f3f8;border-radius:50%;width:32px;height:32px}
+@media(max-width:850px){
+ .navbar{padding:0 4%}.navlinks{display:none}.menu{display:block}
+ .hero{flex-direction:column;min-height:auto;padding:40px 25px}.hero-art{width:100%;transform:scale(.82)}
+ h1{font-size:38px}.grid-4{grid-template-columns:repeat(2,1fr)}.dashboard{grid-template-columns:1fr}.sidebar{display:flex;overflow:auto}.side-btn{min-width:max-content}
+}
+@media(max-width:600px){
+ .container{width:94%}.page{padding-top:25px}.form-grid,.grid-2,.grid-3{grid-template-columns:1fr}
+ .grid-4{grid-template-columns:1fr 1fr}.result-card,.issue{display:block}.photo{width:100%;margin-bottom:15px}
+ h2{font-size:27px}.hero-art{height:270px}.house{transform:scale(.8)}
+ .table{font-size:12px}.table th,.table td{padding:9px 5px}.timeline{gap:3px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="navbar">
+  <div class="logo" onclick="showPage('home')"><span class="logo-icon">⌂</span> UNI NEST</div>
+  <nav class="navlinks">
+    <button onclick="showPage('home')">Home</button>
+    <button onclick="showPage('find')">Find Boarding</button>
+    <button onclick="showPage('student')">Student</button>
+    <button onclick="showPage('owner')">Owner</button>
+  </nav>
+  <button class="menu" onclick="toggleMenu()">☰</button>
+</header>
+
+<main class="container">
+
+<section id="home" class="page active">
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">STUDENT BOARDING MANAGEMENT</div>
+      <h1>Manage your boarding, not just find one.</h1>
+      <p>A simple digital platform for students and boarding owners in Sri Lanka.</p>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="showPage('find')">Find Boarding</button>
+        <button class="btn btn-outline" onclick="showPage('student')">Student Login</button>
+        <button class="btn btn-outline" onclick="showPage('owner')">Owner Login</button>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="tree left"></div><div class="tree right"></div><div class="house"></div>
+      <div class="person a">🧑🏻‍🎓</div><div class="person b">👩🏻‍🎓</div>
+    </div>
+  </div>
+</section>
+
+<section id="find" class="page">
+  <div class="section-head"><div><h2>Find Boarding</h2><div class="muted">Search best boardings near your university</div></div></div>
+  <div class="search-box">
+    <div class="form-grid">
+      <div class="field"><label>University</label><select><option>University of Kelaniya</option><option>University of Peradeniya</option><option>University of Colombo</option><option>University of Moratuwa</option></select></div>
+      <div class="field"><label>Location</label><select><option>Kelaniya</option><option>Kandy</option><option>Peradeniya</option><option>Moratuwa</option><option>Colombo</option></select></div>
+      <div class="field"><label>Budget (per month)</label><select><option>Rs. 10,000 - Rs. 20,000</option><option>Rs. 20,000 - Rs. 30,000</option><option>Below Rs. 10,000</option></select></div>
+      <div class="field"><label>Room Type</label><select><option>Any</option><option>Single</option><option>Shared</option></select></div>
+    </div>
+    <button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="searchBoardings()">⌕ Search</button>
+  </div>
+  <div style="margin:25px 0 12px"><h3>Popular Locations</h3></div>
+  <div class="chips"><span class="chip">Kelaniya</span><span class="chip">Kandy</span><span class="chip">Moratuwa</span><span class="chip">Colombo</span><span class="chip">Galle</span></div>
+  <div id="searchResult" class="card result-card" style="margin-top:20px">
+    <div class="photo">🏠</div><div style="flex:1"><span class="tag">Available</span><h3 style="margin-top:10px">Sihina Student House</h3><p>📍 1.2 km from University of Kelaniya</p><div class="price">Rs. 13,000 <small>/ month</small></div><div class="chips"><span class="chip">Wi-Fi</span><span class="chip">Water</span><span class="chip">Electricity</span><span class="chip">Kitchen</span><span class="chip">Study Area</span></div><button class="btn btn-primary" onclick="showPage('details')">View Details</button></div>
+  </div>
+  
+   <div id="searchResult" class="card result-card" style="margin-top:20px">
+    <div class="photo">🏠</div><div style="flex:1"><span class="tag">Available</span><h3 style="margin-top:10px">UniBoard House</h3><p>📍  500 m from University of Kelaniya</p><div class="price">Rs. 8,000 <small>/ month</small></div><div class="chips"><span class="chip">Wi-Fi</span><span class="chip">Water</span><span class="chip">Electricity</span><span class="chip">Kitchen</span><span class="chip">Study Area</span></div><button class="btn btn-primary" onclick="showPage('details')">View Details</button></div>
+  </div>
+  
+  
+  
+  
+  
+</section>
+
+<section id="details" class="page">
+  <div class="muted" style="margin-bottom:14px;cursor:pointer" onclick="showPage('find')">‹ Back to results</div>
+  <div class="card">
+    <div class="section-head"><div><h2>Sihina Student House <span class="tag">Available</span></h2><div class="muted">📍 1.2 km from University of Kelaniya</div></div></div>
+    <div class="grid grid-2">
+      <div class="photo" style="height:300px">🏡</div>
+      <div>
+        <h2 class="price">Rs. 15,000 <small>/ month</small></h2>
+        <div class="chips"><span class="chip">Wi-Fi</span><span class="chip">Water</span><span class="chip">Electricity</span><span class="chip">Kitchen</span><span class="chip">Study Area</span></div>
+        <h3>Rules</h3><ul class="list"><li>Quiet hours after 9.00 PM</li><li>Visitors allowed until 8.00 PM</li><li>Cooking allowed</li><li>Keep rooms and common areas clean</li></ul>
+        <div class="card" style="box-shadow:none;background:#f7fafc"><b>Owner Contact</b><p style="margin:8px 0">Mr. Perera<br>📞 077 123 4567</p><button class="btn btn-green" onclick="toast('WhatsApp contact opened')">◉ WhatsApp</button></div>
+      </div>
+    </div>
+    <button class="btn btn-primary" style="width:100%;margin-top:20px" onclick="showPage('agreement')">Request Agreement</button>
+  </div>
+</section>
+
+<section id="agreement" class="page">
+  <div class="section-head"><div><h2>Digital Agreement</h2><div class="muted">Please review and agree to the terms</div></div></div>
+  <div class="card">
+    <h3>Agreement Terms</h3>
+    <div class="terms">
+      <div class="term"><strong>Rent</strong><span>Rs. 15,000 per month</span></div>
+      <div class="term"><strong>Payment Date</strong><span>1st of every month</span></div>
+      <div class="term"><strong>Deposit</strong><span>Rs. 15,000 (Refundable)</span></div>
+      <div class="term"><strong>Electricity</strong><span>Shared. Will be split equally.</span></div>
+      <div class="term"><strong>Water</strong><span>Shared. Will be split equally.</span></div>
+      <div class="term"><strong> Visitors</strong><span>Allowed until 8.00 PM</span></div>
+      <div class="term"><strong> Cooking</strong><span>Allowed</span></div>
+      <div class="term"><strong>Cleaning</strong><span>Everyone must keep clean</span></div>
+      <div class="term"><strong> Quiet Hours</strong><span>After 9.00 PM</span></div>
+      <div class="term"><strong> Notice Period</strong><span>1 month</span></div>
+    </div>
+    <label class="check"><input type="checkbox" id="agreeCheck"> I have read and agree to the terms above.</label>
+    <div class="grid grid-2">
+      <div class="signature"><b>Student Signature</b><div class="scribble">Kavindu S.</div><small>Kavindu S.<br>20 Aug 2026</small></div>
+      <div class="signature"><b>Owner Signature</b><div class="scribble">Mr. Perera</div><small>Mr. Perera<br>20 Aug 2026</small></div>
+    </div>
+    <div style="text-align:center;margin-top:18px"><b>Agreement Status:</b> <span class="tag">ACTIVE</span></div>
+  </div>
+</section>
+
+<section id="student" class="page">
+  <div class="dashboard">
+    <aside class="sidebar">
+      <button class="side-btn active">⌂ Dashboard</button><button class="side-btn" onclick="showPage('agreement')">▣ Agreement</button><button class="side-btn" onclick="showPage('expenses')">▤ Expenses</button><button class="side-btn" onclick="showPage('maintenance')">🔧 Maintenance</button><button class="side-btn" onclick="showPage('notices')">♢ Notices</button><button class="side-btn" onclick="showPage('history')">◷ History</button><button class="side-btn" onclick="toast('Profile page demo')">♙ Profile</button>
+    </aside>
+    <div>
+      <h2>Welcome, Kavindu !</h2><p>Room 03 ·Sihina Student House</p>
+      <div class="grid grid-4" style="margin:20px 0">
+        <div class="card stat green"><span class="stat-icon"></span><b>Rent</b><span class="stat-value">PAID</span><small>Next payment: 01 Sep</small></div>
+        <div class="card stat" style="background:#eef3ff"><span class="stat-icon"></span><b>Total Due</b><span class="stat-value">Rs. 1,700</span><small>View details</small></div>
+        <div class="card stat orange"><span class="stat-icon"></span><b>Maintenance</b><span class="stat-value">1</span><small>Open issue</small></div>
+        <div class="card stat purple"><span class="stat-icon"></span><b>Notices</b><span class="stat-value">2</span><small>New</small></div>
+      </div>
+      <div class="grid grid-2">
+        <div class="card teal"><b> Agreement</b><h3 style="margin-top:15px">Active</h3><button class="btn btn-outline" onclick="showPage('agreement')">View</button></div>
+        <div class="card red"><b> History</b><h3 style="margin-top:15px">All records</h3><button class="btn btn-outline" onclick="showPage('history')">View</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="expenses" class="page">
+  <div class="section-head"><div><h2>Expenses & Bills</h2><div class="muted">Your monthly boarding expenses</div></div></div>
+  <div class="tabs"><button class="tab active">Current Month</button><button class="tab">Payment History</button></div>
+  <div class="card">
+    <h3>August 2026</h3>
+    <table class="table"><thead><tr><th>Item</th><th>Total</th><th>Your Share</th></tr></thead><tbody>
+      <tr><td>Rent</td><td>Rs. 60,000</td><td>Rs. 15,000</td></tr><tr><td>Electricity</td><td>Rs. 4,800</td><td>Rs. 1,200</td></tr><tr><td>Water</td><td>Rs. 1,200</td><td>Rs. 300</td></tr><tr><td>Wi-Fi</td><td>Rs. 2,000</td><td>Rs. 500</td></tr><tr><td>Other Expenses</td><td>Rs. 800</td><td>Rs. 200</td></tr>
+      <tr><th>Total</th><th>Rs. 68,800</th><th>Rs. 17,200</th></tr>
+    </tbody></table>
+  </div>
+  <div class="card" style="margin-top:18px"><h3>Payment Status</h3><div class="green" style="padding:14px;border-radius:8px;margin:12px 0;display:flex;justify-content:space-between"><b>Paid</b><b>Rs. 15,500</b></div><div class="red" style="padding:14px;border-radius:8px;display:flex;justify-content:space-between"><b>Due</b><b>Rs. 1,700</b></div><button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="openModal('paymentModal')">Make Payment / Upload Receipt</button></div>
+</section>
+
+<section id="maintenance" class="page">
+  <div class="section-head"><div><h2>Maintenance</h2><div class="muted">Report and track boarding problems</div></div></div>
+  <div class="tabs"><button class="tab active">My Issues</button><button class="tab" onclick="openModal('issueModal')">Report New Issue</button></div>
+  <div class="card">
+    <div class="issue"><div class="issue-photo"></div><div><div style="display:flex;justify-content:space-between;gap:10px"><h3>Bathroom Tap Leaking</h3><span class="status">Repairing</span></div><div class="muted">Reported on: 20 Aug 2026 · Issue ID: #MB-0012</div><p><b>Description</b><br>The tap in the bathroom is leaking continuously.</p><div class="card" style="box-shadow:none;background:#f3f7ff"><b>Owner Response</b><p style="margin:6px 0">Plumber will come tomorrow morning.<br><small>21 Aug 2026 · 10:15 AM</small></p></div></div></div>
+    <h3 style="margin-top:25px">Status Progress</h3>
+    <div class="timeline">
+      <div class="step done"><div class="dot">✓</div>Reported<br><small>20 Aug</small></div>
+      <div class="step done"><div class="dot">✓</div>Accepted<br><small>20 Aug</small></div>
+      <div class="step current"><div class="dot">✓</div>Repairing<br><small>21 Aug</small></div>
+      <div class="step"><div class="dot">•</div>Completed<br><small>Pending</small></div>
+    </div>
+    <button class="btn btn-primary" style="width:100%" onclick="openModal('issueModal')">Report Another Issue</button>
+  </div>
+</section>
+
+<section id="notices" class="page">
+  <div class="section-head"><div><h2>Notices</h2><div class="muted">Important boarding information</div></div></div>
+  <div class="notice"><h4> Water interruption</h4><p>Water supply will be unavailable tomorrow from 9.00 AM to 12.00 PM.</p><small>Posted 20 Aug 2026</small></div>
+  <div class="notice"><h4> Electricity maintenance</h4><p>Electricity maintenance is scheduled for Friday from 10.00 AM.</p><small>Posted 19 Aug 2026</small></div>
+  <div class="notice"><h4> Cleaning schedule</h4><p>Common area cleaning will take place Saturday at 10.00 AM.</p><small>Posted 18 Aug 2026</small></div>
+</section>
+
+<section id="history" class="page">
+  <div class="section-head"><div><h2>Boarding History</h2><div class="muted">Your shared record of payments, repairs and important events</div></div></div>
+  <div class="card">
+    <div class="history-row"><div class="history-date">21 Aug</div><div> <b>Bathroom tap repair</b><br><span class="muted">Status updated to Repairing</span></div></div>
+    <div class="history-row"><div class="history-date">20 Aug</div><div> <b>Maintenance reported</b><br><span class="muted">Bathroom tap leaking · #MB-0012</span></div></div>
+    <div class="history-row"><div class="history-date">20 Aug</div><div> <b>Payment recorded</b><br><span class="muted">Rent payment received · Rs. 15,500</span></div></div>
+    <div class="history-row"><div class="history-date">19 Aug</div><div> <b>Electricity bill added</b><br><span class="muted">August electricity bill · Rs. 4,800</span></div></div>
+    <div class="history-row"><div class="history-date">01 Aug</div><div> <b>Agreement activated</b><br><span class="muted">ABC Student House · Room 03</span></div></div>
+  </div>
+</section>
+
+<section id="owner" class="page">
+  <div class="dashboard">
+    <aside class="sidebar">
+      <button class="side-btn active">⌂ Dashboard</button><button class="side-btn" onclick="toast('Students management demo')"> Students</button><button class="side-btn" onclick="toast('Rooms management demo')"> Rooms</button><button class="side-btn" onclick="showPage('expenses')"> Payments</button><button class="side-btn" onclick="showPage('maintenance')">🔧 Maintenance</button><button class="side-btn" onclick="showPage('agreement')">▣ Agreements</button><button class="side-btn" onclick="showPage('notices')">♢ Notices</button><button class="side-btn" onclick="toast('Reports demo')">▥ Reports</button>
+    </aside>
+    <div>
+      <h2>Overview</h2><p>Sihina Student House · Owner Dashboard</p>
+      <div class="grid grid-3" style="margin:20px 0">
+        <div class="card stat" style="background:#eef3ff"><span></span><b>Total Students</b><span class="stat-value">12</span></div>
+        <div class="card stat green"><span></span><b>Total Rooms</b><span class="stat-value">5</span></div>
+        <div class="card stat orange"><span></span><b>Pending Payments</b><span class="stat-value">2</span></div>
+        <div class="card stat red"><span></span><b>Maintenance Issues</b><span class="stat-value">3</span></div>
+        <div class="card stat purple"><span></span><b>Active Agreements</b><span class="stat-value">10</span></div>
+        <div class="card stat teal"><span></span><b>New Notices</b><span class="stat-value">1</span></div>
+      </div>
+      <div class="card"><h3>Recent Activities</h3>
+        <div class="history-row"><div class="history-date">20 Aug</div><div>New maintenance issue reported <span class="muted">(Room 03)</span></div></div>
+        <div class="history-row"><div class="history-date">20 Aug</div><div>Payment received from Kavindu <span class="muted">(Room 03)</span></div></div>
+        <div class="history-row"><div class="history-date">19 Aug</div><div>Electricity bill added for August</div></div>
+        <div class="history-row"><div class="history-date">18 Aug</div><div>New student registered <span class="muted">(Room 05)</span></div></div>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:18px" onclick="openModal('noticeModal')">Create Notice</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="footer">© 2026 Boarding Buddy · Student Boarding Management Prototype</div>
+<div id="toast" class="toast"></div>
+
+<div id="issueModal" class="modal"><div class="modal-box"><button class="close" onclick="closeModal('issueModal')">×</button><h2>Report New Issue</h2><p class="muted">Submit a maintenance problem to the owner.</p><div class="field"><label>Problem</label><input id="issueName" placeholder="e.g. Bathroom tap leaking"></div><div class="field" style="margin-top:12px"><label>Description</label><textarea placeholder="Describe the problem..."></textarea></div><div class="field" style="margin-top:12px"><label>Photo</label><input type="file" accept="image/*"></div><button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="submitIssue()">Submit Report</button></div></div>
+
+<div id="paymentModal" class="modal"><div class="modal-box"><button class="close" onclick="closeModal('paymentModal')">×</button><h2>Payment</h2><p class="muted">Demo payment screen.</p><div class="field"><label>Amount</label><input value="1700"></div><div class="field" style="margin-top:12px"><label>Upload Receipt</label><input type="file" accept="image/*,.pdf"></div><button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="closeModal('paymentModal');toast('Payment receipt uploaded successfully')">Upload Receipt</button></div></div>
+
+<div id="noticeModal" class="modal"><div class="modal-box"><button class="close" onclick="closeModal('noticeModal')">×</button><h2>Create Notice</h2><div class="field"><label>Title</label><input placeholder="e.g. Water interruption"></div><div class="field" style="margin-top:12px"><label>Message</label><textarea placeholder="Write notice..."></textarea></div><button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="closeModal('noticeModal');toast('Notice created successfully')">Publish Notice</button></div></div>
+
+<script>
+const pages=['home','find','details','agreement','student','expenses','maintenance','notices','history','owner'];
+function showPage(id){
+  pages.forEach(p=>document.getElementById(p)?.classList.remove('active'));
+  document.getElementById(id)?.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelector('.navlinks')?.classList.remove('open');
+}
+function toggleMenu(){
+  const n=document.querySelector('.navlinks');
+  if(n.style.display==='flex'){n.style.display='none'}else{n.style.display='flex';n.style.flexDirection='column';n.style.position='absolute';n.style.right='4%';n.style.top='62px';n.style.background='#fff';n.style.padding='10px';n.style.border='1px solid #dce3ef';n.style.borderRadius='10px';n.style.boxShadow='0 8px 25px rgba(16,44,115,.12)'}
+}
+function toast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+function openModal(id){document.getElementById(id).classList.add('show')}
+function closeModal(id){document.getElementById(id).classList.remove('show')}
+function submitIssue(){
+  const name=document.getElementById('issueName').value.trim()||'New maintenance issue';
+  closeModal('issueModal');toast(name+' reported successfully');document.getElementById('issueName').value='';
+}
+function searchBoardings(){toast('Showing available boardings');document.getElementById('searchResult').scrollIntoView({behavior:'smooth',block:'center'})}
+window.addEventListener('click',e=>{
+  document.querySelectorAll('.modal').forEach(m=>{if(e.target===m)m.classList.remove('show')})
+});
+</script>
+</body>
+</html>
